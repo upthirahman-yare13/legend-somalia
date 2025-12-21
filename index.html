@@ -3,146 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIFTUHUB Academy | Phase 1 & 2</title>
+    <title>GIFTUHUB Academy | Eng Abdirahman</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        .active-lesson { border-left: 5px solid #2563eb; background-color: #eff6ff; color: #1e40af; }
-        .quiz-option:hover { background-color: #f1f5f9; border-color: #3b82f6; }
+        .sidebar-link.active { background: #eff6ff; color: #2563eb; border-left: 4px solid #2563eb; }
+        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-content { animation: fadeIn 0.4s ease-out; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
 
-    <nav class="sticky top-0 z-50 bg-white border-b p-4 flex justify-between items-center shadow-sm">
-        <div class="flex items-center gap-2">
-            <div class="bg-blue-600 text-white p-2 rounded-lg shadow-md"><i class="fas fa-graduation-cap"></i></div>
-            <h1 class="text-xl font-black tracking-tighter text-blue-800">GIFTUHUB <span class="text-gray-400 font-normal">ACADEMY</span></h1>
-        </div>
-        <div class="flex gap-4">
-            <a href="https://tiktok.com/@updyrhmn13" target="_blank" class="text-slate-800 text-xl hover:scale-110 transition"><i class="fab fa-tiktok"></i></a>
-            <a href="https://wa.me/252613040087" target="_blank" class="text-green-500 text-2xl hover:scale-110 transition"><i class="fab fa-whatsapp"></i></a>
-        </div>
-    </nav>
+    <header class="lg:hidden glass border-b p-4 sticky top-0 z-50 flex justify-between items-center">
+        <h1 class="font-black text-blue-600">GIFTUHUB</h1>
+        <button onclick="toggleMenu()" class="text-2xl"><i class="fas fa-bars"></i></button>
+    </header>
 
-    <div class="container mx-auto flex flex-col md:flex-row min-h-screen">
-        <aside class="w-full md:w-80 bg-white border-r p-6 space-y-6">
-            <div>
-                <h3 class="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Phase 1: IT Fundamentals</h3>
-                <nav class="space-y-1" id="lesson-menu"></nav>
+    <div class="flex">
+        <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 z-40 w-72 bg-white border-r min-h-screen p-6 overflow-y-auto shadow-xl lg:shadow-none">
+            <div class="mb-8 flex items-center gap-3">
+                <div class="bg-blue-600 text-white p-2 rounded-xl shadow-lg"><i class="fas fa-laptop-code"></i></div>
+                <div>
+                    <h2 class="font-black text-slate-800 leading-none">GIFTUHUB</h2>
+                    <span class="text-[10px] text-blue-600 font-bold uppercase">Eng Abdirahman</span>
+                </div>
             </div>
-            
-            <div class="pt-4 border-t">
-                <h3 class="text-[10px] font-black text-orange-500 uppercase tracking-widest mb-4">Phase 2: Assessments</h3>
-                <button onclick="showQuiz()" class="w-full text-left p-4 rounded-xl hover:bg-orange-50 transition text-sm font-bold flex items-center gap-3 text-orange-700 border border-orange-100">
-                    <i class="fas fa-vial"></i> Qaado Imtixaanka (Quiz)
-                </button>
-            </div>
+
+            <nav class="space-y-6">
+                <div>
+                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Phase 1: Computer Basics</h3>
+                    <div class="space-y-1" id="menu-p1"></div>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Phase 2: IT Networking</h3>
+                    <div class="space-y-1" id="menu-p2"></div>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Phase 3: Web Development</h3>
+                    <div class="space-y-1" id="menu-p3"></div>
+                </div>
+                
+                <div class="pt-6 border-t">
+                    <button onclick="showFinalExam()" class="w-full bg-orange-500 text-white py-3 rounded-xl font-bold text-sm shadow-lg hover:bg-orange-600 transition">
+                        <i class="fas fa-graduation-cap mr-2"></i> Final Exam & Certificate
+                    </button>
+                </div>
+            </nav>
         </aside>
 
-        <main class="flex-1 p-6 lg:p-12">
-            <div id="main-display" class="max-w-4xl mx-auto space-y-10">
+        <main class="flex-1 min-h-screen p-4 lg:p-10">
+            <div id="content-display" class="max-w-4xl mx-auto animate-content">
+                <div class="text-center py-20">
+                    <h1 class="text-5xl font-black text-slate-800 mb-4">Ku soo dhawaaw Dashboard-ka</h1>
+                    <p class="text-slate-500">Dooro cashar dhinaca bidix ah si aad u bilowdo barashada.</p>
                 </div>
+            </div>
         </main>
     </div>
 
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="toggleChat()" class="bg-blue-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl hover:scale-110 transition">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+        <div id="chat-box" class="hidden absolute bottom-20 right-0 w-80 bg-white rounded-3xl shadow-2xl border overflow-hidden">
+            <div class="bg-blue-600 p-4 text-white font-bold flex justify-between items-center">
+                <span>GIFTUHUB Support</span>
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="p-4 h-64 overflow-y-auto text-sm space-y-3" id="chat-messages">
+                <div class="bg-slate-100 p-3 rounded-2xl rounded-tl-none">Asc! Soo dhawaaw arday. Sideen kuu caawin karnaa?</div>
+            </div>
+            <div class="p-3 border-t flex gap-2">
+                <input type="text" id="chat-input" placeholder="Farriin qor..." class="flex-1 text-sm outline-none">
+                <button onclick="sendChat()" class="text-blue-600 font-bold">Dir</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const lessons = {
-            1: {
-                title: "Lesson 1: Hordhaca IT & Hardware",
-                video: "https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce",
-                doc: "Information Technology (IT) waa adeegsiga qalabka elektaroonigga ah si loo maareeyo xogta. Hardware waa qaybta la taaban karo.",
-                assignment: "Qor 5 qalab oo hardware ah."
-            },
-            2: {
-                title: "Lesson 2: Software & Operating Systems",
-                video: "https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce",
-                doc: "Software waa barnaamijyada aan la taaban karin. Waxaa u sareeya Operating System-ka (sida Windows ama macOS).",
-                assignment: "Waa maxay farqiga u dhexeeya System Software iyo Application Software?"
-            },
-            3: {
-                title: "Lesson 3: Network & Internet Basics",
-                video: "https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce",
-                doc: "Networking waa isku xirka laba computer ama ka badan. Internet-ku waa shabakadda ugu weyn adduunka.",
-                assignment: "Sharax macnaha IP Address iyo wuxuu qabto."
-            },
-            4: {
-                title: "Lesson 4: Cyber Security & Safety",
-                video: "https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce",
-                doc: "Amniga internet-ka waa ilaalinta xogtaada. Isticmaal Password adag mar walba.",
-                assignment: "Samee liis ka kooban 3 qaab oo aad ku garan karto Email-ka been abuurka ah (Phishing)."
-            }
+        const courseData = {
+            p1: [
+                { id: 1, title: "Hardware Basics", video: "https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce", doc: "Hardware waa qaybaha la taaban karo ee computer-ka.", practical: "https://via.placeholder.com/600x300?text=Hardware+Identification+Practical", assignment: "Qor 5 qalab oo Input ah.", quiz: { q: "Waa maxay Mouse-ku?", a: ["Hardware", "Software"], c: 0 } },
+                { id: 2, title: "Operating Systems", video: "https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce", doc: "OS waa barnaamijka maamula computer-ka.", practical: "https://via.placeholder.com/600x300?text=Windows+Desktop+Practical", assignment: "Sheeg 3 nooc oo OS ah.", quiz: { q: "Windows ma Software baa?", a: ["Haa", "Maya"], c: 0 } }
+            ],
+            p2: [
+                { id: 3, title: "Network Types", video: "https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce", doc: "LAN iyo WAN waa labada nooc ee ugu caansan.", practical: "https://via.placeholder.com/600x300?text=Router+Setup+Practical", assignment: "Sharax farqiga LAN iyo WAN.", quiz: { q: "Internet-ku ma WAN baa?", a: ["Haa", "Maya"], c: 0 } }
+            ],
+            p3: [
+                { id: 4, title: "HTML & CSS", video: "https://github.com/user-attachments/assets/a090ac1f-540e-4e41-b274-eedeb099d1ce", doc: "HTML waa laf-dhabarta website-ka.", practical: "https://via.placeholder.com/600x300?text=HTML+Coding+Practical", assignment: "Abuur bog leh 'Hello World'.", quiz: { q: "HTML ma programming language baa?", a: ["Haa", "Maya"], c: 1 } }
+            ]
         };
 
         function renderMenu() {
-            const menu = document.getElementById('lesson-menu');
-            Object.keys(lessons).forEach(id => {
-                menu.innerHTML += `
-                    <button onclick="loadLesson(${id})" id="btn-${id}" class="lesson-btn w-full text-left p-4 rounded-xl hover:bg-slate-50 transition text-sm font-bold flex items-center gap-3 border border-transparent">
-                        <i class="fas fa-play-circle text-blue-600"></i> Lesson ${id}
-                    </button>
-                `;
+            ['p1', 'p2', 'p3'].forEach(p => {
+                const container = document.getElementById('menu-' + p);
+                courseData[p].forEach(lesson => {
+                    container.innerHTML += `
+                        <button onclick="loadLesson('${p}', ${lesson.id})" class="sidebar-link w-full text-left p-3 rounded-xl text-sm font-semibold flex items-center gap-3 hover:bg-slate-50 transition">
+                            <i class="fas fa-book-open text-xs opacity-50"></i> ${lesson.title}
+                        </button>`;
+                });
             });
         }
 
-        function loadLesson(id) {
-            document.querySelectorAll('.lesson-btn').forEach(btn => btn.classList.remove('active-lesson'));
-            document.getElementById('btn-' + id).classList.add('active-lesson');
+        function loadLesson(p, id) {
+            const lesson = courseData[p].find(l => l.id === id);
+            const display = document.getElementById('content-display');
+            display.innerHTML = `
+                <div class="space-y-8 animate-content">
+                    <h2 class="text-4xl font-black text-slate-800">${lesson.title}</h2>
+                    
+                    <div class="bg-black rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white">
+                        <video controls class="w-full aspect-video"><source src="${lesson.video}" type="video/mp4"></video>
+                    </div>
 
-            const lesson = lessons[id];
-            document.getElementById('main-display').innerHTML = `
-                <div class="space-y-6">
-                    <h2 class="text-3xl font-black text-slate-800">${lesson.title}</h2>
-                    <div class="relative bg-black rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                        <video controls class="w-full aspect-video" autoplay><source src="${lesson.video}" type="video/mp4"></video>
-                    </div>
-                    <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
-                        <h4 class="font-bold text-blue-600 mb-2 underline">Dukumentiga Casharka</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">${lesson.doc}</p>
-                    </div>
-                    <div class="bg-orange-50 p-8 rounded-[2rem] border border-orange-100">
-                        <h4 class="font-bold text-orange-800 mb-2 italic">Assignment-kaada</h4>
-                        <p class="text-sm text-orange-700">${lesson.assignment}</p>
-                        <button onclick="window.open('https://wa.me/252613040087')" class="mt-4 bg-orange-500 text-white px-6 py-2 rounded-xl text-xs font-bold">Gudbi Assignment-ka</button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showQuiz() {
-            document.getElementById('main-display').innerHTML = `
-                <div class="bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 space-y-8">
-                    <div class="text-center">
-                        <span class="bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-[10px] font-black uppercase">Phase 2: Imtixaan</span>
-                        <h2 class="text-3xl font-black text-slate-800 mt-2">Tijaabi Aqoontaada</h2>
-                    </div>
-                    <div class="space-y-6">
-                        <div class="p-6 bg-slate-50 rounded-2xl">
-                            <p class="font-bold text-slate-700 mb-4 text-lg">1. Waa maxay maskaxda Computer-ka ee amarrada bixisa?</p>
-                            <div class="grid gap-3">
-                                <button onclick="checkAnswer(true)" class="quiz-option text-left p-4 border-2 rounded-xl transition font-medium bg-white">A) CPU (Central Processing Unit)</button>
-                                <button onclick="checkAnswer(false)" class="quiz-option text-left p-4 border-2 rounded-xl transition font-medium bg-white">B) RAM (Random Access Memory)</button>
-                                <button onclick="checkAnswer(false)" class="quiz-option text-left p-4 border-2 rounded-xl transition font-medium bg-white">C) Hard Drive</button>
-                            </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-8 rounded-3xl border shadow-sm">
+                            <h4 class="font-bold text-blue-600 mb-3 uppercase text-xs tracking-widest">Akhriska Casharka</h4>
+                            <p class="text-slate-600 leading-relaxed">${lesson.doc}</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl border shadow-sm">
+                            <h4 class="font-bold text-orange-600 mb-3 uppercase text-xs tracking-widest">Practical (Sawir)</h4>
+                            <img src="${lesson.practical}" class="rounded-xl w-full h-auto shadow-inner" alt="Practical Image">
                         </div>
                     </div>
-                    <div id="quiz-result" class="hidden p-6 rounded-2xl text-center font-bold"></div>
-                </div>
-            `;
+
+                    <div class="bg-blue-600 p-8 rounded-[2rem] text-white flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-lg">Assignment-ka Casharka</h4>
+                            <p class="opacity-90 text-sm">${lesson.assignment}</p>
+                        </div>
+                        <button onclick="window.open('https://wa.me/252613040087')" class="bg-white text-blue-600 px-6 py-3 rounded-2xl font-black text-xs uppercase shadow-xl">Gudbi</button>
+                    </div>
+
+                    <div class="bg-slate-100 p-8 rounded-[2rem]">
+                        <h4 class="font-bold mb-4">Quiz-ka Casharka</h4>
+                        <p class="mb-4 font-medium text-slate-700">${lesson.quiz.q}</p>
+                        <div class="flex gap-4">
+                            ${lesson.quiz.a.map((opt, i) => `<button onclick="answerQuiz(${i}, ${lesson.quiz.c})" class="bg-white px-6 py-3 rounded-xl border-2 hover:border-blue-500 transition font-bold text-sm">${opt}</button>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="pt-10 border-t">
+                        <h4 class="font-bold mb-4 tracking-widest uppercase text-xs">Comments</h4>
+                        <div class="flex gap-4 mb-6">
+                            <input type="text" id="com-input" class="flex-1 p-4 rounded-2xl border outline-none shadow-inner" placeholder="Maxaad ka fahamtay?">
+                            <button onclick="addComment()" class="bg-slate-800 text-white px-8 rounded-2xl font-bold">Post</button>
+                        </div>
+                        <div id="com-list" class="space-y-4"></div>
+                    </div>
+                </div>`;
         }
 
-        function checkAnswer(isCorrect) {
-            const res = document.getElementById('quiz-result');
-            res.classList.remove('hidden');
-            if(isCorrect) {
-                res.className = "p-6 rounded-2xl text-center font-bold bg-green-100 text-green-700 border border-green-200";
-                res.innerHTML = "🎉 Sax! Waad ku gudubtay su'aashan. Mashallah!";
-            } else {
-                res.className = "p-6 rounded-2xl text-center font-bold bg-red-100 text-red-700 border border-red-200";
-                res.innerHTML = "❌ Khalad! Mar kale isku day saaxiib.";
+        function answerQuiz(selected, correct) {
+            if(selected === correct) alert("🎉 Sax! Mashallah.");
+            else alert("❌ Khalad. Mar kale isku day.");
+        }
+
+        function addComment() {
+            const input = document.getElementById('com-input');
+            const list = document.getElementById('com-list');
+            if(input.value) {
+                list.innerHTML = `<div class="bg-white p-4 rounded-2xl border shadow-sm text-sm"><strong>Arday:</strong> ${input.value}</div>` + list.innerHTML;
+                input.value = '';
             }
         }
 
-        window.onload = () => { renderMenu(); loadLesson(1); };
+        function showFinalExam() {
+            const display = document.getElementById('content-display');
+            display.innerHTML = `
+                <div class="max-w-md mx-auto text-center py-20 space-y-6 animate-content">
+                    <i class="fas fa-award text-7xl text-orange-500"></i>
+                    <h2 class="text-3xl font-black">Final Exam & Certification</h2>
+                    <p class="text-slate-500">Si aad u hesho shahaadada, fadlan geli magacaaga oo buuxa.</p>
+                    <input type="text" id="student-name" class="w-full p-4 rounded-2xl border-2 border-blue-100 outline-none text-center font-bold text-lg" placeholder="Magacaaga oo Afar ah">
+                    <button onclick="generateCert()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black uppercase tracking-widest shadow-2xl hover:bg-blue-700 transition">Download Certificate</button>
+                </div>`;
+        }
+
+        function generateCert() {
+            const name = document.getElementById('student-name').value;
+            if(!name) return alert("Fadlan magaca geli!");
+            
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('l', 'mm', 'a4');
+
+            // Design
+            doc.setFillColor(30, 64, 175);
+            doc.rect(0, 0, 297, 20, 'F');
+            doc.setFontSize(40);
+            doc.setTextColor(30, 64, 175);
+            doc.text("CERTIFICATE OF COMPLETION", 148, 60, null, null, 'center');
+            doc.setFontSize(20);
+            doc.setTextColor(100);
+            doc.text("Waxaa la siiyey:", 148, 85, null, null, 'center');
+            doc.setFontSize(35);
+            doc.setTextColor(0);
+            doc.text(name.toUpperCase(), 148, 105, null, null, 'center');
+            doc.setFontSize(18);
+            doc.text("Maadaama uu si guul leh u dhameystirey Phase 1, 2 & 3 ee GIFTUHUB Academy.", 148, 125, null, null, 'center');
+            
+            doc.setFontSize(15);
+            doc.text("_________________________", 148, 160, null, null, 'center');
+            doc.text("ENG ABDIRAHMAN ABDIRIZAQ", 148, 170, null, null, 'center');
+            doc.setFontSize(10);
+            doc.text("Founder & CEO of GIFTUHUB Academy", 148, 175, null, null, 'center');
+
+            doc.save(`GIFTUHUB_Certificate_${name}.pdf`);
+        }
+
+        function toggleChat() { document.getElementById('chat-box').classList.toggle('hidden'); }
+        function sendChat() {
+            const input = document.getElementById('chat-input');
+            if(input.value) {
+                document.getElementById('chat-messages').innerHTML += `<div class="bg-blue-600 text-white p-3 rounded-2xl rounded-tr-none ml-auto w-fit text-xs">${input.value}</div>`;
+                input.value = '';
+                setTimeout(() => {
+                    window.open('https://wa.me/252613040087');
+                }, 1000);
+            }
+        }
+
+        window.onload = renderMenu;
     </script>
 </body>
 </html>
