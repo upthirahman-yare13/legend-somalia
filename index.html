@@ -3,93 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gifthub Academy Dashboard</title>
+    <title>Gifthub IT Academy | Eng Abdirahman</title>
     <style>
-        :root { --primary: #1a56db; --orange: #ff8c00; --bg: #f3f4f6; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 15px; color: #333; }
+        :root { --blue: #1a56db; --orange: #ff8c00; --light: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f1f5f9; margin: 0; padding: 15px; }
         
-        /* Header & Contact */
-        .top-nav { background: white; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .social-links a { text-decoration: none; font-size: 14px; font-weight: bold; padding: 8px 12px; border-radius: 8px; margin-left: 5px; }
-        .wa { background: #25d366; color: white; }
-        .tt { background: black; color: white; }
+        /* Profile Section */
+        .profile-card { background: white; border-radius: 20px; padding: 25px; text-align: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); margin-bottom: 20px; border-top: 8px solid var(--blue); }
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--blue); object-fit: cover; margin-bottom: 10px; }
+        .name { font-size: 20px; font-weight: bold; color: #1e293b; margin: 5px 0; }
+        .degree { color: var(--blue); font-weight: 600; font-size: 14px; background: #dbeafe; padding: 4px 12px; border-radius: 20px; display: inline-block; }
+        
+        /* Links Bar */
+        .links-bar { display: flex; gap: 10px; margin-top: 15px; justify-content: center; }
+        .link-btn { text-decoration: none; padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: bold; color: white; display: flex; align-items: center; gap: 5px; }
+        .wa-btn { background: #25d366; }
+        .tt-btn { background: #000; }
 
-        .main-header { background: var(--primary); color: white; padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 20px; }
-        
-        /* Phase Styling */
-        .phase-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; border-left: 6px solid var(--primary); }
-        .phase-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .price-tag { background: #eef2ff; color: var(--primary); padding: 5px 10px; border-radius: 20px; font-weight: bold; font-size: 14px; }
-        
-        .lesson-item { background: #f9fafb; padding: 15px; border-radius: 10px; margin-bottom: 10px; border: 1px solid #e5e7eb; }
-        .lesson-title { font-weight: bold; display: block; margin-bottom: 10px; }
-        
-        .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
-        .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none; }
-        .btn-vid { background: var(--orange); color: white; }
-        .btn-sec { background: #d1d5db; color: #374151; }
+        /* Course Info */
+        .course-header { background: var(--blue); color: white; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; }
 
-        /* Certificate Section */
-        .cert-box { background: #374151; color: white; padding: 25px; border-radius: 15px; text-align: center; position: relative; overflow: hidden; }
-        .lock-icon { font-size: 30px; margin-bottom: 10px; }
-        .btn-lock { background: #9ca3af; color: white; cursor: not-allowed; width: 100%; margin-top: 15px; }
+        /* Phase Grid */
+        .phase-grid { display: grid; gap: 15px; }
+        .phase-box { background: white; border-radius: 15px; padding: 15px; border-left: 5px solid var(--blue); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .phase-top { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px; }
+        .price { color: #059669; }
+        
+        .lesson-list { border-top: 1px solid #eee; padding-top: 10px; }
+        .lesson-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 14px; }
+        
+        .btn-group { display: flex; gap: 5px; }
+        .btn-s { padding: 6px 10px; border-radius: 5px; border: none; font-size: 11px; font-weight: bold; cursor: pointer; text-decoration: none; }
+        .v-btn { background: var(--orange); color: white; }
+        .a-btn { background: #e2e8f0; color: #475569; }
+
+        /* Lock Certificate */
+        .lock-section { background: #1e293b; color: white; padding: 25px; border-radius: 20px; text-align: center; margin-top: 20px; }
+        .lock-icon { font-size: 30px; opacity: 0.5; }
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
-        <span>Eng Abdirahman</span>
-        <div class="social-links">
-            <a href="https://wa.me/252613040087" class="wa">WhatsApp</a>
-            <a href="https://www.tiktok.com/@uphirahman" class="tt">TikTok</a>
+    <div class="profile-card">
+        <img src="https://via.placeholder.com/100" class="profile-img" alt="Eng Abdirahman"> <div class="name">Eng Abdirahman Abdirizaq</div>
+        <div class="degree">🎓 Master's Degree in IT</div>
+        <p style="font-size: 13px; color: #64748b;">Khabiir ku takhasusay Barashada Tignoolajiyada</p>
+        
+        <div class="links-bar">
+            <a href="https://wa.me/252613040087" class="link-btn wa-btn">WhatsApp</a>
+            <a href="https://www.tiktok.com/@updulahiyare0" class="link-btn tt-btn">TikTok</a>
         </div>
     </div>
 
-    <div class="main-header">
-        <h2>GIFTHUB IT ACADEMY</h2>
-        <p>Full Course Price: $100</p>
+    <div class="course-header">
+        <strong>FULL IT COURSE (6 PHASES) - $100</strong>
     </div>
 
-    <div class="phase-card">
-        <div class="phase-head">
-            <strong>PHASE 1: COMPUTER BASICS</strong>
-            <span class="price-tag">$10.00</span>
-        </div>
-        <div class="lesson-item">
-            <span class="lesson-title">Lesson 1: Hardware & Software</span>
-            <div class="btn-row">
-                <a href="#" class="btn btn-vid">▶ Watch Video</a>
-                <a href="#" class="btn btn-sec">Assignment</a>
-                <a href="#" class="btn btn-sec">Practice</a>
+    <div class="phase-grid">
+        <div class="phase-box">
+            <div class="phase-top">
+                <span>PHASE 1: IT Basics</span>
+                <span class="price">$10.00</span>
+            </div>
+            <div class="lesson-list">
+                <div class="lesson-item">
+                    <span>Lesson 1: Hardware & Software</span>
+                    <div class="btn-group">
+                        <a href="#" class="btn-s v-btn">Video</a>
+                        <a href="#" class="btn-s a-btn">Task</a>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div style="text-align: center; font-size: 12px; color: #94a3b8; padding: 10px;">Phase 2 - 6 are being updated...</div>
     </div>
 
-    <div class="phase-card">
-        <div class="phase-head">
-            <strong>PHASE 2: WEB DEVELOPMENT</strong>
-            <span class="price-tag">$15.00</span>
-        </div>
-        <div class="lesson-item">
-            <span class="lesson-title">Lesson 1: HTML & CSS Basics</span>
-            <div class="btn-row">
-                <a href="#" class="btn btn-vid">▶ Watch Video</a>
-                <a href="#" class="btn btn-sec">Assignment</a>
-                <a href="#" class="btn btn-sec">Practice</a>
-            </div>
-        </div>
-    </div>
-
-    <div style="text-align: center; color: #666; padding: 10px;">Phase 3, 4, 5 & 6 Coming Soon...</div>
-
-    <div class="cert-box">
+    <div class="lock-section">
         <div class="lock-icon">🔒</div>
-        <h3>GET YOUR CERTIFICATE</h3>
-        <p>Fee: $10.00 (Locked until all phases complete)</p>
-        <button class="btn btn-lock">LOCKED</button>
+        <h4>Master IT Certificate</h4>
+        <p style="font-size: 12px; opacity: 0.8;">Fee: $10.00 | Locked until completion</p>
     </div>
-
-    <p style="text-align: center; font-size: 12px; margin-top: 20px;">© 2025 Gifthub Academy | Mogadishu, Somalia</p>
 
 </body>
     </html>
