@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Zuhuur | PhD Medical Researcher & Consultant</title>
+    <title>Dr. Zuhuur | PhD Medical Researcher & Smart Bot</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono&family=Libre+Barcode+39&display=swap" rel="stylesheet">
     
@@ -27,22 +27,22 @@
         .container { max-width: 1100px; margin: 0 auto; padding: 60px 5%; }
 
         /* Chatbot Interface */
-        #chatbot-launcher { position: fixed; bottom: 30px; left: 30px; width: 60px; height: 60px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; z-index: 10000; box-shadow: 0 10px 20px rgba(0,0,0,0.2); font-size: 30px; }
-        #chat-window { position: fixed; bottom: 100px; left: 30px; width: 320px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; z-index: 10000; }
+        #chatbot-launcher { position: fixed; bottom: 30px; left: 30px; width: 65px; height: 65px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; z-index: 10000; box-shadow: 0 10px 20px rgba(0,0,0,0.2); font-size: 30px; border: 2px solid var(--navy); }
+        #chat-window { position: fixed; bottom: 100px; left: 30px; width: 330px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: none; flex-direction: column; overflow: hidden; z-index: 10000; border: 1px solid #ddd; }
         .chat-header { background: var(--navy); color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; }
-        .chat-body { height: 300px; padding: 15px; overflow-y: auto; font-size: 0.9rem; background: #f1f5f9; display: flex; flex-direction: column; }
-        .chat-input-area { padding: 10px; border-top: 1px solid #eee; display: flex; }
-        .chat-input-area input { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
+        .chat-body { height: 350px; padding: 15px; overflow-y: auto; font-size: 0.85rem; background: #f1f5f9; display: flex; flex-direction: column; }
+        .chat-input-area { padding: 10px; border-top: 1px solid #eee; display: flex; background: white; }
+        .chat-input-area input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
         
-        .msg { margin-bottom: 10px; padding: 10px; border-radius: 10px; max-width: 85%; line-height: 1.4; }
-        .bot-msg { background: white; color: var(--navy); align-self: flex-start; }
-        .user-msg { background: var(--gold); color: white; align-self: flex-end; }
+        .msg { margin-bottom: 10px; padding: 12px; border-radius: 12px; max-width: 85%; line-height: 1.5; }
+        .bot-msg { background: white; color: var(--navy); align-self: flex-start; border: 1px solid #e2e8f0; }
+        .user-msg { background: var(--navy); color: white; align-self: flex-end; }
 
-        /* Professional ID Badge */
+        /* ID Badge & Map */
         .id-wrapper { display: flex; justify-content: center; margin-bottom: 80px; }
         .id-card { width: 320px; height: 520px; background: white; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); border: 1px solid #eee; text-align: center; overflow: hidden; }
         .id-top { background: var(--navy); height: 90px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 0.7rem; }
-        .id-img { width: 130px; height: 130px; background-image: url('https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1000&auto=format&fit=crop'); background-size: cover; border: 5px solid white; border-radius: 50%; margin: -65px auto 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .id-img { width: 130px; height: 130px; background-image: url('https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=1000&auto=format&fit=crop'); background-size: cover; border: 5px solid white; border-radius: 50%; margin: -65px auto 15px; }
         .barcode { font-family: 'Libre Barcode 39'; font-size: 2.8rem; margin-top: 10px; opacity: 0.7; }
 
         .map-container { width: 100%; height: 400px; border-radius: 20px; overflow: hidden; border: 2px solid var(--gold); margin-top: 20px; }
@@ -55,14 +55,14 @@
     <div id="chatbot-launcher" onclick="toggleChat()">🤖</div>
     <div id="chat-window">
         <div class="chat-header">
-            <span>Dr. Zuhuur Search AI</span>
+            <span>Dr. Zuhuur Medical Advisor</span>
             <span style="cursor:pointer" onclick="toggleChat()">×</span>
         </div>
         <div class="chat-body" id="chat-body">
-            <div class="msg bot-msg">Asc! Qor erey kasta oo caafimaad, daawo, ama qiimaha adeegyada Dr. Zuhuur si aan kuugu raadiyo.</div>
+            <div class="msg bot-msg">Asc! Waxaan haynaa dhamaan adeegyada caafimaadka, tallaalka, iyo daawooyinka. Maxaan kaaga caawiyaa? (Tusaale qor: Tallaalka, Dhalmada, ama magac daawo).</div>
         </div>
         <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Tusaale: Xumad, Daawo, Qiimaha..." onkeypress="if(event.key==='Enter') processChat()">
+            <input type="text" id="chat-input" placeholder="Weydii wax kasta..." onkeypress="if(event.key==='Enter') processChat()">
         </div>
     </div>
 
@@ -73,7 +73,7 @@
 
     <section class="hero">
         <h1>Dr. Zuhuur</h1>
-        <p>PhD Medical Researcher & Clinical Strategist. Khibrad caafimaad oo heer sare ah.</p>
+        <p>PhD Medical Researcher & Clinical Strategist. Khibrad caafimaad oo lagu kalsoon yahay.</p>
         <div>
             <a href="https://vm.tiktok.com/ZMD2GHmXd/" class="social-btn tiktok-btn" target="_blank">🎵 TikTok Profile</a>
             <a href="https://wa.me/252617911816" class="social-btn wa-btn" target="_blank">💬 WhatsApp</a>
@@ -85,23 +85,18 @@
             <div class="id-card">
                 <div class="id-top">GLOBAL MEDICAL ARCHIVE</div>
                 <div class="id-img"></div>
-                <div class="id-content">
-                    <h3 style="margin: 10px 0;">Dr. Zuhuur</h3>
-                    <p style="color: var(--gold); font-weight: bold;">MEDICAL SPECIALIST</p>
-                    <div style="font-size: 0.8rem; margin-top: 15px;">Reg No: ZH-816-2025-PHD</div>
-                </div>
-                <div style="margin-top: 20px;">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=65x65&data=https://wa.me/252617911816" alt="Scan">
-                </div>
+                <h3>Dr. Zuhuur</h3>
+                <p style="color: var(--gold); font-weight: bold;">MEDICAL SPECIALIST</p>
+                <div style="font-size: 0.8rem; margin-top: 15px;">Reg No: ZH-816-2025-PHD</div>
                 <div class="barcode">*617911816*</div>
             </div>
         </div>
 
         <div style="text-align: center; margin-top: 60px;">
-            <h2 style="font-family: 'Playfair Display';">Daru-salaam Office</h2>
+            <h2 style="font-family: 'Playfair Display';">Xafiiska Daru-salaam</h2>
             <p>Xafada Banana, Dabaqyada Daru-salaam, Mogadishu</p>
             <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.70460497561!2d45.2963124!3d2.0911739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3d58434771429995%3A0x6b772c95e1c0700!2sDaru%20Salam%2C%20Mogadishu!5e0!3m2!1sen!2sso!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.74205423!2d45.31!3d2.08!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwMDQnNDguMCJOIDQ1wrAxOCczNi4wIkU!5e0!3m2!1sen!2sso!4v1625000000000!5m2!1sen!2sso" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </div>
@@ -111,14 +106,18 @@
     </footer>
 
     <script>
-        // Chatbot Knowledge Base
-        const medicalDB = {
-            "xumad": "Xumaddu waa difaaca jirka. Cab biyo badan, naso, haddii ay kor u kacdana la xiriir Dr. Zuhuur.",
-            "madax xanuun": "Madax xanuunka wuxuu ku imaan karaa hurdo la'aan ama stress. Haddii uu saa'id yahay, ballan qabso.",
-            "daawo": "Daawooyinka waxaa loo bixiyaa si waafaqsan baaritaanka. Dr. Zuhuur waxay ku siinaysaa talo cilmiyeed.",
-            "qiimaha": "La-talinta VIP waa $50, Buugga Medical Guide waa $10. Adeegyada kale xafiiska ayaa looga heshiiyaa.",
-            "evc": "Lacagta ku soo dir EVC Plus: 617911816.",
-            "location": "Waxaan joognaa Daru-salaam, Xafada Banana, Mogadishu."
+        // Large Medical Knowledge Base
+        const healthDB = {
+            "tallaal": "Haa, waxaan haynaa dhamaan tallaalada carruurta (Polio, Measles, BCG). Tallaalku waa bilaash ama qiimo jaban.",
+            "carruur": "Daryeelka carruurta iyo nafaqada waa takhasuskayaga. Waxaan haynaa baaritaano dhammaystiran.",
+            "dhalmo": "Daryeelka hooyada iyo dhalmada ka hor (Antenatal Care) waa la hayaa. VIP Consultation waa $50.",
+            "nafaqo": "Waxaan bixinaa talooyin nafaqo oo cilmiyeed oo loogu talagalay hooyada iyo dhallaanka.",
+            "daawo": "Haa, xafiiska waxaa ku yaal pharmacy yar oo leh daawooyinka daruuriga ah. Qiimuhu waa mid macne leh.",
+            "paracetamol": "Haa, waa la hayaa. Qiimuhu waa $1.50.",
+            "vitamin": "Haa, Multivitamins kala duwan ayaa diyaar ah si loo xoojiyo difaaca jirka.",
+            "xumad": "Haddii ilmuhu xumad leeyahay, cabir heer-kulka, qabooji jirka, una keen Dr. Zuhuur degdeg.",
+            "qiimaha": "La-talin: $50 | Buugga PDF: $10 | Tallaalka: (Kala xiriir xafiiska).",
+            "location": "Xafada Banana, Dabaqyada Daru-salaam, Mogadishu."
         };
 
         function toggleChat() {
@@ -128,19 +127,19 @@
 
         function processChat() {
             let input = document.getElementById('chat-input');
-            let text = input.value.toLowerCase();
+            let text = input.value.toLowerCase().trim();
             let body = document.getElementById('chat-body');
 
-            if (text.trim() === "") return;
+            if (text === "") return;
 
             body.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
             input.value = "";
 
-            let reply = "Waan ka xumahay, xogtaas hadda ma hayo. Fadlan si toos ah u weydii Dr. Zuhuur WhatsApp-ka.";
+            let reply = "Waan ka xumahay, su'aashaas hadda jawaab uma hayo. Fadlan si toos ah u weydii Dr. Zuhuur WhatsApp: +252617911816";
             
-            for (let key in medicalDB) {
+            for (let key in healthDB) {
                 if (text.includes(key)) {
-                    reply = medicalDB[key];
+                    reply = healthDB[key];
                     break;
                 }
             }
