@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOOSHIN AI | Clean Portrait Filter</title>
+    <title>KOOSHIN AI | Snow Filter HD</title>
     <style>
-        body { margin: 0; background: #000; color: white; font-family: 'Montserrat', sans-serif; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
-        
-        /* Camera Frame - Portrait Mode (Wajiga ilaa Garbaha) */
-        .portrait-box {
-            position: relative;
-            width: 100vw;
-            height: 75vh;
+        body {
+            margin: 0; padding: 0;
             background: #000;
+            display: flex; flex-direction: column; align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
             overflow: hidden;
-            border-bottom: 4px solid #333;
+        }
+
+        /* 1. Camera Container (Half Mode) */
+        .cam-wrapper {
+            position: relative;
+            width: 100%;
+            height: 70vh; /* Waxaan ka dhigay barkii sare ee shaashadda */
+            overflow: hidden;
+            background: #111;
+            border-bottom: 3px solid #00f2ff;
         }
 
         #webcam {
@@ -22,121 +29,104 @@
             height: 100%;
             object-fit: cover;
             transform: scaleX(-1);
-            /* Men's Clean Filter: Sifayn, Iftiin qabow, iyo Sharpness */
-            filter: brightness(1.1) contrast(1.05) saturate(1.1) sharpness(1.2) hue-rotate(-2deg);
+            /* iPhone Vivid & Soft Filter */
+            filter: brightness(1.1) contrast(1.05) saturate(1.2) blur(0px);
         }
 
-        /* Soft Lighting Overlay */
-        .lighting-effect {
+        /* 2. Snow Animation Effect */
+        .snow-overlay {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.4) 100%);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
+            z-index: 10;
         }
 
-        .ui-panel {
-            height: 25vh;
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(70vh); }
+        }
+
+        /* 3. Controls Layout */
+        .controls {
+            height: 30vh;
             width: 100%;
-            background: #0a0a0a;
+            background: #050505;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
         }
 
-        /* Professional Recording Button */
-        .rec-container {
-            width: 80px; height: 80px;
-            border: 4px solid #fff;
+        .btn-record {
+            width: 70px; height: 70px;
+            background: red;
+            border: 4px solid white;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             cursor: pointer;
-            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
-        .rec-core {
-            width: 60px; height: 60px;
-            background: #fff;
-            border-radius: 50%;
-            transition: 0.3s;
-        }
+        .btn-record:active { transform: scale(0.9); }
 
-        .rec-container.active .rec-core {
-            background: #ff003c;
-            border-radius: 8px; /* Wuxuu noqonayaa square markuu duubayo */
-            transform: scale(0.6);
-        }
-
-        .status-text { font-size: 14px; color: #aaa; margin-bottom: 10px; font-weight: bold; letter-spacing: 1px; }
+        .title { font-size: 14px; letter-spacing: 2px; color: #00f2ff; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-    <div class="portrait-box">
-        <video id="webcam" autoplay playsinline muted></video>
-        <div class="lighting-effect"></div>
+    <div class="cam-wrapper">
+        <video id="webcam" autoplay playsinline></video>
+        <div class="snow-overlay" id="snow-box"></div>
     </div>
 
-    <div class="ui-panel">
-        <p class="status-text" id="status">ULTRA-CLEAN PORTRAIT MODE</p>
-        <div class="rec-container" id="recBtn" onclick="handleCapture()">
-            <div class="rec-core"></div>
-        </div>
-        <p style="font-size: 10px; margin-top: 10px; opacity: 0.5;">HD 4K | 60 FPS | MEN'S FILTER</p>
+    <div class="controls">
+        <div class="title">IPHONE 17 PRO | SNOW MODE</div>
+        <p style="font-size: 12px; opacity: 0.6;">Duubista bilow si aad muqaal baraf leh u hesho</p>
+        <div class="btn-record" id="recordBtn"></div>
     </div>
 
     <script>
-        let mediaRecorder;
-        let chunks = [];
-
-        async function initCamera() {
+        // Start HD Camera
+        async function startCam() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { 
-                        facingMode: "user", 
-                        width: { ideal: 1920 }, 
-                        height: { ideal: 1080 },
-                        frameRate: 60 
-                    },
-                    audio: true
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: "user", width: 1280, height: 720 } 
                 });
                 document.getElementById('webcam').srcObject = stream;
             } catch (err) {
-                document.getElementById('status').innerText = "ERROR: Camera Permission Denied";
+                alert("Fadlan ogolow kamaradda si barafka u aragto!");
             }
         }
 
-        function handleCapture() {
-            const btn = document.getElementById('recBtn');
-            const status = document.getElementById('status');
-            const video = document.getElementById('webcam');
-
-            if (!mediaRecorder || mediaRecorder.state === "inactive") {
-                chunks = [];
-                mediaRecorder = new MediaRecorder(video.srcObject);
-                mediaRecorder.ondataavailable = e => chunks.push(e.data);
-                mediaRecorder.onstop = () => {
-                    const blob = new Blob(chunks, { type: 'video/mp4' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'Kooshin_Portrait_HD.mp4';
-                    a.click();
-                    status.innerText = "MUQAALKA WAA LA DAGSADAY ✅";
-                };
-                mediaRecorder.start();
-                btn.classList.add('active');
-                status.innerText = "DUUBISTA AYAA SOCOTA...";
-            } else {
-                mediaRecorder.stop();
-                btn.classList.remove('active');
-                status.innerText = "DIYAARINAYAA MUQAALKA...";
+        // Create Snowflakes
+        function createSnow() {
+            const snowBox = document.getElementById('snow-box');
+            for (let i = 0; i < 50; i++) {
+                let flake = document.createElement('div');
+                flake.className = 'snowflake';
+                
+                let size = Math.random() * 5 + 2 + 'px';
+                flake.style.width = size;
+                flake.style.height = size;
+                
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                flake.style.animationDelay = Math.random() * 5 + 's';
+                
+                snowBox.appendChild(flake);
             }
         }
 
-        initCamera();
+        startCam();
+        createSnow();
     </script>
 </body>
 </html>
