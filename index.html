@@ -3,134 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOOSHIN AI | IPHONE 17 PRO CAMERA</title>
+    <title>KOOSHIN AI | Snow Filter HD</title>
     <style>
-        /* 1. Setup-ka Guud */
-        body, html {
+        body {
             margin: 0; padding: 0;
-            width: 100%; height: 100%;
-            background: #000; /* Asalka waa madow si kamaradu u soo dhalaasho */
+            background: #000;
+            display: flex; flex-direction: column; align-items: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
             overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
         }
 
-        /* 2. Kamaradda Ballaran (iPhone View) */
-        #webcam {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover; /* Tani waxay hubinaysaa in jidhkaaga oo dhan la arko */
-            transform: scaleX(-1); /* Mirror Effect */
-            
-            /* IPHONE VIVID FILTER: Midabada iyo Iftiinka halkan baa laga xukumaa */
-            filter: brightness(1.15) contrast(1.1) saturate(1.3) sharpness(1.2);
-            transition: 0.5s;
-        }
-
-        /* 3. Interface-ka (Buttons) */
-        .camera-ui {
-            position: absolute;
-            bottom: 50px;
+        /* 1. Camera Container (Half Mode) */
+        .cam-wrapper {
+            position: relative;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            height: 70vh; /* Waxaan ka dhigay barkii sare ee shaashadda */
+            overflow: hidden;
+            background: #111;
+            border-bottom: 3px solid #00f2ff;
+        }
+
+        #webcam {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scaleX(-1);
+            /* iPhone Vivid & Soft Filter */
+            filter: brightness(1.1) contrast(1.05) saturate(1.2) blur(0px);
+        }
+
+        /* 2. Snow Animation Effect */
+        .snow-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
             z-index: 10;
         }
 
-        .shutter-btn {
-            width: 80px;
-            height: 80px;
+        .snowflake {
+            position: absolute;
+            top: -10px;
             background: white;
-            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(70vh); }
+        }
+
+        /* 3. Controls Layout */
+        .controls {
+            height: 30vh;
+            width: 100%;
+            background: #050505;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-record {
+            width: 70px; height: 70px;
+            background: red;
+            border: 4px solid white;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
-        .shutter-btn:active {
-            transform: scale(0.9);
-            background: #ff003c; /* Markaad riixdo waxay u baxaysaa casaan (Recording) */
-        }
+        .btn-record:active { transform: scale(0.9); }
 
-        .badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-family: sans-serif;
-            font-size: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-        }
-
-        /* 4. Laser-ka Quruxda ah */
-        .laser-line {
-            position: absolute;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(to right, transparent, #00f2ff, transparent);
-            box-shadow: 0 0 15px #00f2ff;
-            top: 0;
-            display: none;
-            z-index: 5;
-            animation: moveLaser 3s infinite linear;
-        }
-
-        @keyframes moveLaser {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
+        .title { font-size: 14px; letter-spacing: 2px; color: #00f2ff; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-    <div class="badge">iPhone 17 Pro | 4K 60FPS</div>
-    <div class="laser-line" id="laser"></div>
-    
-    <video id="webcam" autoplay playsinline></video>
+    <div class="cam-wrapper">
+        <video id="webcam" autoplay playsinline></video>
+        <div class="snow-overlay" id="snow-box"></div>
+    </div>
 
-    <div class="camera-ui">
-        <p style="color: white; font-family: sans-serif; text-shadow: 0 2px 5px #000;">RIIX BADHANKA SI AAD SCAN-KA U BILOWDO</p>
-        <div class="shutter-btn" onclick="startIPhoneScan()"></div>
+    <div class="controls">
+        <div class="title">IPHONE 17 PRO | SNOW MODE</div>
+        <p style="font-size: 12px; opacity: 0.6;">Duubista bilow si aad muqaal baraf leh u hesho</p>
+        <div class="btn-record" id="recordBtn"></div>
     </div>
 
     <script>
-        async function startCamera() {
-            const constraints = {
-                video: {
-                    facingMode: "user",
-                    width: { ideal: 1920 },
-                    height: { ideal: 1080 },
-                    frameRate: { ideal: 60 }
-                }
-            };
-
+        // Start HD Camera
+        async function startCam() {
             try {
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                const stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: "user", width: 1280, height: 720 } 
+                });
                 document.getElementById('webcam').srcObject = stream;
             } catch (err) {
-                alert("Kamarad lama heli karo! Fadlan ogolow 'Permission'-ka browser-ka.");
+                alert("Fadlan ogolow kamaradda si barafka u aragto!");
             }
         }
 
-        function startIPhoneScan() {
-            const laser = document.getElementById('laser');
-            laser.style.display = "block";
-            
-            // Markuu scan-ku bilowdo, iftiinka wax yar kor u qaad
-            document.getElementById('webcam').style.filter = "brightness(1.2) contrast(1.2) saturate(1.4)";
-
-            setTimeout(() => {
-                laser.style.display = "none";
-                document.getElementById('webcam').style.filter = "brightness(1.15) contrast(1.1) saturate(1.3)";
-                alert("Scan-kii waa dhamaaday! Video-gaagu waa diyaar.");
-            }, 5000);
+        // Create Snowflakes
+        function createSnow() {
+            const snowBox = document.getElementById('snow-box');
+            for (let i = 0; i < 50; i++) {
+                let flake = document.createElement('div');
+                flake.className = 'snowflake';
+                
+                let size = Math.random() * 5 + 2 + 'px';
+                flake.style.width = size;
+                flake.style.height = size;
+                
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                flake.style.animationDelay = Math.random() * 5 + 's';
+                
+                snowBox.appendChild(flake);
+            }
         }
 
-        startCamera();
+        startCam();
+        createSnow();
     </script>
 </body>
 </html>
