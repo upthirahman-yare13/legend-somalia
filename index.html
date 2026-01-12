@@ -1,152 +1,103 @@
-<!DOCTYPE html>
-<html lang="so">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOOSHIN HUB | Visual Library</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root { --green: #064e3b; --gold: #fbbf24; --dark: #020617; }
-        body { font-family: 'Montserrat', sans-serif; background: var(--dark); color: white; margin: 0; padding-bottom: 90px; }
-        
-        header { 
-            background: var(--green); padding: 20px; text-align: center; border-bottom: 3px solid var(--gold); 
-            position: sticky; top: 0; z-index: 1000;
-        }
-
-        .page { display: none; padding: 15px; animation: fadeIn 0.4s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Visual Card Style for Siira, Duco, and Hadith */
-        .visual-card { 
-            background: rgba(255,255,255,0.05); margin-bottom: 20px; border-radius: 20px; 
-            overflow: hidden; border: 1px solid rgba(251, 191, 36, 0.2);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        }
-        .visual-card img { width: 100%; height: 180px; object-fit: cover; border-bottom: 3px solid var(--gold); }
-        .card-content { padding: 15px; }
-        .arabic-text { font-family: 'Amiri', serif; font-size: 1.3rem; color: var(--gold); text-align: right; margin-bottom: 10px; }
-        .somali-text { font-size: 0.9rem; line-height: 1.6; color: #e2e8f0; }
-
-        /* Grid for Tasbih */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .tasbih-card { background: rgba(255,255,255,0.08); padding: 15px; border-radius: 15px; text-align: center; border: 1px solid rgba(251, 191, 36, 0.2); }
-
-        /* Bottom Nav */
-        .nav-bar { 
-            position: fixed; bottom: 0; width: 100%; background: #0f172a; 
-            display: flex; overflow-x: auto; padding: 12px 0; border-top: 2px solid var(--gold); z-index: 1000; 
-        }
-        .nav-item { color: #94a3b8; font-size: 0.65rem; cursor: pointer; text-align: center; min-width: 80px; flex: 1; border:none; background:none; }
-        .active-nav { color: var(--gold); font-weight: bold; }
-    </style>
-</head>
-<body>
-
-<header>
-    <h1 style="margin:0; font-family: 'Amiri'; color: var(--gold);">KOOSHIN HUB</h1>
-</header>
-
-<div id="quran-sec" class="page" style="display:block;">
-    <iframe style="width:100%; height:78vh; border:none; border-radius:15px;" src="https://quran.com?translations=55"></iframe>
-</div>
-
-<div id="tasbih-sec" class="page">
-    <div class="grid-2" id="tasbih-list"></div>
-</div>
-
 <div id="siira-sec" class="page">
-    <h3 style="text-align:center; color: var(--gold);">SIIRADA NABIGA (NNKH)</h3>
-    
-    <div class="visual-card">
-        <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=1000" alt="Makka">
-        <div class="card-content">
-            <h4 style="color:var(--gold)">1. Dhalashadii iyo Caruurnimadii</h4>
-            <p class="somali-text">Nabigu (NNKH) wuxuu dhashay sanadkii Maroodiga (571 Miilaadiga). Wuxuu ku dhashay Makka isagoo agoon ah. Waxaa nuujisay Xaliimo Sacdiya oo uu la joogay sanadihii ugu horeeyay.</p>
-        </div>
-    </div>
+    <h2 style="text-align:center; color: var(--gold); font-family: 'Amiri';">سيرة النبي محمد ﷺ</h2>
+    <h3 style="text-align:center; color: white;">TAARIIXDA NABIGA (AF-SOOMAALI)</h3>
 
-    <div class="visual-card">
-        <img src="https://images.unsplash.com/photo-1566127444979-b3d2b654e3d7?q=80&w=1000" alt="Cave Hira">
-        <div class="card-content">
-            <h4 style="color:var(--gold)">2. Bilowgii Waxyiga</h4>
-            <p class="somali-text">Markii uu gaaray 40 sano, Malagga Jibriil ayaa ugu yimid godka Xiraa. Aayadihii ugu horeeyay ee loo soo dajiyay waxay ahaayeen "IQRA" (Akhri).</p>
-        </div>
-    </div>
-</div>
-
-<div id="duco-sec" class="page">
-    <h3 style="text-align:center; color: var(--gold);">DUCOOYIN SAWIRRO LEH</h3>
-    
-    <div class="visual-card">
-        <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1000" alt="Prayer">
-        <div class="card-content">
-            <div class="arabic-text">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً</div>
-            <p class="somali-text">"Rabbiyow na sii adduunka wanaag iyo aakhiradaba wanaag, naguna badbaadi cadaabka naarta."</p>
-        </div>
-    </div>
-
-    <div class="visual-card">
-        <img src="https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=1000" alt="Night">
-        <div class="card-content">
-            <div class="arabic-text">بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا</div>
-            <p class="somali-text">"Magacaaga Alloow baan ku dhintaa (seexdaa) kuna noolaadaa (soo toosaa)."</p>
-        </div>
-    </div>
-</div>
-
-<div id="hadith-sec" class="page">
-    <h3 style="text-align:center; color: var(--gold);">30 XADIIS OO MUHIIM AH</h3>
-    <div id="hadith-list"></div>
-</div>
-
-<nav class="nav-bar">
-    <button class="nav-item active-nav" onclick="showPage('quran-sec', this)"><i class="fas fa-quran"></i><br>QUR'AAN</button>
-    <button class="nav-item" onclick="showPage('tasbih-sec', this)"><i class="fas fa-beads"></i><br>TASBIIX</button>
-    <button class="nav-item" onclick="showPage('siira-sec', this)"><i class="fas fa-history"></i><br>SIIRADA</button>
-    <button class="nav-item" onclick="showPage('duco-sec', this)"><i class="fas fa-hands-praying"></i><br>DUCO</button>
-    <button class="nav-item" onclick="showPage('hadith-sec', this)"><i class="fas fa-book"></i><br>XADIIS</button>
-</nav>
-
-<script>
-    // Tasbih 30 Items
-    const tList = document.getElementById('tasbih-list');
-    for(let i=1; i<=30; i++) {
-        tList.innerHTML += `
-            <div class="tasbih-card">
-                <div class="arabic-text" style="font-size:1rem;">سُبْحَانَ اللَّهِ</div>
-                <div class="somali-text" style="font-size:0.7rem;">Ilaahay baa hufan</div>
-                <div style="font-size:1.5rem; color:var(--gold);" id="c${i}">0</div>
-                <button style="width:100%; background:var(--gold); border:none; padding:5px; border-radius:5px;" onclick="count('c${i}')">TAABO</button>
+    <div class="content-card">
+        <img src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=1000" alt="Masjid Nabawi">
+        <div class="card-body">
+            <div class="arabic">تعريف السيرة النبوية</div>
+            <div class="somali">
+                <b>Qaybta 1aad: Waa maxay Siiradu?</b><br>
+                Siirada Nabiga waxaa loola jeedaa taariikhda nololeedka Nabiga (NNKH), waana cilmiga ku takhasusay ururinta dhacdooyinkii nolosha Rasuulka, sifooyinkiisa aqlaaqeed iyo kuwooga muuqaal, iyo weliba duullaannadiisii. 
+                <br><br>
+                <i>Kitaabka ugu caansan waa "Siirada Ibnu Hishaam".</i>
             </div>
-        `;
-    }
+        </div>
+    </div>
 
-    // Hadith 30 Items
-    const hList = document.getElementById('hadith-list');
-    for(let i=1; i<=30; i++) {
-        hList.innerHTML += `
-            <div class="visual-card">
-                <div class="card-content">
-                    <div class="arabic-text">إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ</div>
-                    <p class="somali-text">Xadiiska ${i}: Camalladu waxay ku xiranyihiin niyadda. Qof walbana wuxuu helayaa wuxuu niyaystay.</p>
-                </div>
+    <div class="content-card">
+        <div class="card-body">
+            <div class="arabic">السيرة لغة واصطلاحاً</div>
+            <div class="somali">
+                <b>Qaybta 2aad: Macnaha Siirada</b><br>
+                <b>Luqad ahaan:</b> Waxay la macno tahay Sunnada, Waddada, ama Xaaladda uu qofku ku sugan yahay. Qur'aanku wuxuu u isticmaalay macnahaas (Aayadda 21-aad ee Suuratu Daha).<br><br>
+                <b>Istilaax ahaan:</b> Waa wixii naga soo gaaray nolosha Nabiga (NNKH) laga soo bilaabo dhalashadiisa (ka hor iyo ka dibba) ilaa dhimashadiisa. Waxay ka kooban tahay: Nasabkiisa, caruurnimadiisii, waxyigii ku soo degay, mucjisooyinkii, iyo marxaladihii dacwada ee Makka iyo Madiina.
             </div>
-        `;
-    }
+        </div>
+    </div>
 
-    function count(id) {
-        document.getElementById(id).innerText = parseInt(document.getElementById(id).innerText) + 1;
-        if (navigator.vibrate) navigator.vibrate(40);
-    }
+    <div class="content-card">
+        <div class="card-body">
+            <div class="arabic">النطاق الزماني</div>
+            <div class="somali">
+                <b>Qaybta 3aad: Xilliga ay koobayso</b><br>
+                Siiradu waxay bilaabataa dhalashadii Nabiga ee "Sannadkii Maroodiga" (571 Miilaadiga) ilaa dhimashadiisii 12-ka Rabiicul-awal sannadkii 11-aad ee Hijriyada (632 Miilaadiga). Waa guud ahaan 63 sano oo taariikh dahabi ah ah.
+            </div>
+        </div>
+    </div>
 
-    function showPage(id, btn) {
-        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-        document.getElementById(id).style.display = 'block';
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active-nav'));
-        btn.classList.add('active-nav');
-    }
-</script>
-</body>
-</html>0
+    <div class="content-card">
+        <img src="https://images.unsplash.com/photo-1566127444979-b3d2b654e3d7?q=80&w=1000" alt="Mecca">
+        <div class="card-body">
+            <div class="arabic">النطاق المكاني</div>
+            <div class="somali">
+                <b>Qaybta 4aad: Goobaha ay ka dhacday</b><br>
+                Nabigu wuxuu ku dhashay Makka, halkaas oo uu ku noolaa inta badan nolosha, waxyiguna ugu yimid isagoo 40 jir ah. Wuxuu u hijrooday Madiina isagoo 53 jir ah. Guud ahaan, meesha ay siiradu ka dhacday waa dhulka Xijaas (Makka, Madiina, Da'if) iyo guud ahaan Jasiiradda Carabta.
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="card-body">
+            <div class="arabic">أهمية السيرة النبوية</div>
+            <div class="somali">
+                <b>Qaybta 5aad: Ahmiyadda ay u leedahay Muslimka</b><br>
+                1. <b>Fahamka Qur'aanka:</b> Qur'aanku wuxuu u soo degay si xiriir la leh dhacdooyinka siirada.<br>
+                2. <b>Fahamka Sunnada:</b> Siiradu waxay sharraxdaa xaaladihii hadallada Nabiga laga yiri.<br>
+                3. <b>Fahamka Caqiidada:</b> Waxaan ka barannaa sugnaanta iimaanka xilliyada dhibka.<br>
+                4. <b>Ku dayanashada Nabiga:</b> "Waxaa idiin dhex yaal Rasuulka Ilaah tusaale wanaagsan".<br>
+                5. <b>Jacaylka Nabiga & Asxaabta:</b> Markaad barato siirada, waxaa kordhaya jacaylka aad u qabto Nabiga, xaasaskiisa (Muna'ul Mu'miniin), iyo asxaabtiisii geesiyaasha ahaa.
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="card-body">
+            <div class="arabic">مميزات السيرة</div>
+            <div class="somali">
+                <b>Qaybta 6aad: Waxyaabaha ay gaarka u leedahay</b><br>
+                - <b>Sugnaanta:</b> Waa taariikhda ugu sugan ee nabi la soo diray laga hayo.<br>
+                - <b>Caddaan:</b> Nolosha Nabiga waa mid cad oo xaraf xaraf loo qoray (sidii isagoo qorraxda dhex taagan).<br>
+                - <b>Xaqiiqo:</b> In kasta oo uu mucjisooyin lahaa, haddana waa qof binu-aadan ah oo nolosha caadiga ah tusaale noogu ah.<br>
+                - <b>Shumul:</b> Waxay koobaysaa nolosha qofka, tan bulshada, siyaasadda, iyo dagaallada.
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card" style="border-left: 5px solid #10b981;">
+        <div class="card-body">
+            <div class="arabic">مصادر السيرة والمؤلفات</div>
+            <div class="somali">
+                <b>Qeybaha 7, 8, 9: Meelaha laga soo xigtay</b><br>
+                Isha koowaad waa Qur'aanka Kariimka ah, ka dibna kutubta Xadiiska (Bukhari, Muslim), iyo kutubta Tafsiirka. 
+                <br><br>
+                <b>Kutubta ugu caansan:</b><br>
+                - Qarnigii 3-aad: Siirada Ibnu Hishaam.<br>
+                - Qarnigii 8-aad: Zaadul Macaad (Ibnu Qayim).<br>
+                - Qarnigan: Ar-Raxiiq Al-Makhtuum (Al-Mubaarakfuuri).
+            </div>
+        </div>
+    </div>
+
+    <div class="content-card">
+        <div class="card-body">
+            <div class="arabic">طالع أيضًا</div>
+            <div class="somali">
+                <b>Qaybta 10aad: Sidoo kale akhri</b><br>
+                * Maxamed ﷺ ee Islaamka dhexdiisa.<br>
+                * Mucjisooyinka Sunnada Nabiga.<br>
+                * Liiska waraaqihii uu Nabigu dirtay.
+            </div>
+        </div>
+    </div>
+</div>
